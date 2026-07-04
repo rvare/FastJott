@@ -1,14 +1,15 @@
 use std::{env, fs, io};
 use std::io::Write;
+use chrono;
 
-fn prompt_new_note() {
-	let Some(mut file_path) = env::home_dir() else {
+fn new_note() {
+	let Some(mut file_path) = env::home_dir() else { // Returns a BufPath and moves it file_path.
 		panic!("Could not get your path!");
 	};
 
 	file_path.push("rtest.txt");
 
-	let mut file = match fs::OpenOptions::new().append(true).create(true).open(file_path) {
+	let mut file: fs::File = match fs::OpenOptions::new().append(true).create(true).open(file_path) {
 		Ok(file) => file,
 		Err(why) => panic!("Could not open notes.txt file: {}", why),
 	};
@@ -19,7 +20,10 @@ fn prompt_new_note() {
 		panic!("Input error: {}", why);
 	}
 
-	if let Err(why) = writeln!(file, "{}", note_content.trim()) {
+	let current_date: chrono::DateTime<chrono::Local> = chrono::Local::now();
+	println!("{}", current_date.format("%Y-%m-%d"));
+
+	if let Err(why) = writeln!(file, "{}  {}", current_date.format("%Y-%m-%d"), note_content.trim()) {
 		panic!("Could not write to file: {}", why);
 	}
 }
@@ -29,7 +33,7 @@ fn main() {
 
 	match args.len() {
 		1 => {
-			prompt_new_note();
+			new_note();
 		},
 		// TODO Add more branches.
 		_ => println!("Error"),
