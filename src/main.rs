@@ -2,9 +2,9 @@ use std::{env, fs, io};
 use std::io::Write;
 use chrono;
 
-fn new_note() {
+fn new_note(important_flag: bool) {
 	let Some(mut file_path) = env::home_dir() else { // Returns a BufPath and moves it to file_path.
-		panic!("Could not get your path!");
+		panic!("Could not get path to home directory!");
 	};
 
 	file_path.push("rtest.txt");
@@ -22,7 +22,9 @@ fn new_note() {
 
 	let current_date: chrono::DateTime<chrono::Local> = chrono::Local::now();
 
-	if let Err(why) = writeln!(file, "{}  {}", current_date.format("%Y-%m-%d"), note_content.trim()) {
+	let signifier: &str = if important_flag { "(*) " } else { "" };
+
+	if let Err(why) = writeln!(file, "{}{}  {}", signifier, current_date.format("%Y-%m-%d"), note_content.trim()) {
 		panic!("Could not write to file: {}", why);
 	}
 
@@ -31,12 +33,23 @@ fn new_note() {
 
 fn main() {
 	let args: Vec<String> = env::args().collect();
+	let mut important_flag: bool = false;
 
-	match args.len() {
-		1 => {
-			new_note();
-		},
-		// TODO Add more branches.
-		_ => println!("Error"),
+	if args.len() > 1 {
+		let Some(flags) = args.get(1) else {
+			panic!("Could not get arguments passed.");
+		};
+
+		if flags.chars().nth(0).unwrap() != '-' {
+			panic!("Flags were not given! If you did give flags, make sure there is a dash next the flags.");
+		}
+
+		for flag in flags.chars() {
+			if flag == 'i' {
+				important_flag = true;
+			}
+		}
 	}
+
+	new_note(important_flag);
 }
