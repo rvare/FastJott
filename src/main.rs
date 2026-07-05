@@ -3,7 +3,7 @@ use std::io::Write;
 use chrono;
 
 fn new_note() {
-	let Some(mut file_path) = env::home_dir() else { // Returns a BufPath and moves it file_path.
+	let Some(mut file_path) = env::home_dir() else { // Returns a BufPath and moves it to file_path.
 		panic!("Could not get your path!");
 	};
 
@@ -21,11 +21,12 @@ fn new_note() {
 	}
 
 	let current_date: chrono::DateTime<chrono::Local> = chrono::Local::now();
-	println!("{}", current_date.format("%Y-%m-%d"));
 
 	if let Err(why) = writeln!(file, "{}  {}", current_date.format("%Y-%m-%d"), note_content.trim()) {
 		panic!("Could not write to file: {}", why);
 	}
+
+	println!("\nNote saved.");
 }
 
 fn main() {
