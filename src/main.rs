@@ -32,24 +32,17 @@ fn new_note(important_flag: bool) {
 }
 
 fn main() {
-	let args: Vec<String> = env::args().collect();
-	let mut important_flag: bool = false;
+	let mut args_iter = env::args().skip(1);
 
-	if args.len() > 1 {
-		let Some(flags) = args.get(1) else {
-			panic!("Could not get arguments passed.");
-		};
-
-		if flags.chars().nth(0).unwrap() != '-' {
-			panic!("Flags were not given! If you did give flags, make sure there is a dash next the flags.");
-		}
-
-		for flag in flags.chars() {
-			if flag == 'i' {
-				important_flag = true;
+	if let Some(flag) = args_iter.next() {
+		match flag.as_str() {
+			"-i" => new_note(true),
+			_ => {
+				eprintln!("Unrecognized flag");
+				return;
 			}
 		}
+	} else {
+		new_note(false);
 	}
-
-	new_note(important_flag);
 }
