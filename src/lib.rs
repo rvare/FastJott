@@ -93,3 +93,11 @@ pub fn search_for_note(query: String) {
 	count += 1;
     }
 }
+
+pub fn help_info() {
+    println!("Usage: rustnoteutil [OPTION]");
+    println!("-i, --important\n\tlabels a note as important");
+    println!("-a, --archive\n\tarchives current notes.txt file");
+    println!("-h, --help\n\tdisplay this help information");
+    println!("-s, --search\n\tsearch for notes with specific query");
+}
