@@ -68,3 +68,28 @@ pub fn archive_notes_file() {
 
     println!("Archived to: {}", archive_path.display());
 }
+
+pub fn search_for_note(query: String) {
+    let Some(mut file_path) = env::home_dir() else {
+        eprintln!("Could not get to home directory!");
+        process::exit(1);
+    };
+
+    file_path.push("rtest.txt");
+
+    let note_contents: String = match fs::read_to_string(file_path) {
+        Ok(contents) => contents,
+        Err(why) => {
+            eprintln!("Could not open notes.txt file: {}", why);
+            process::exit(1);
+        }
+    };
+
+    let mut count = 1;
+    for line in note_contents.lines() {
+        if line.contains(&query) {
+            println!("{count}: {}", line);
+        }
+	count += 1;
+    }
+}
