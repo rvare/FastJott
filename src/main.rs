@@ -5,10 +5,10 @@ fn main() {
 
     if let Some(flag) = args_iter.next() {
         match flag.as_str() {
-            "-i" => rustnoteutil::new_note(true),
-            "-a" => rustnoteutil::archive_notes_file(),
+            "-i" | "--important" => rustnoteutil::new_note(true),
+            "-a" | "--archive" => rustnoteutil::archive_notes_file(),
 	    "-h" | "--help" => rustnoteutil::help_info(),
-            "-s" => {
+            "-s" | "--serach" => {
                 let Some(regex) = args_iter.next() else {
                     eprintln!("No search parameter provided");
                     process::exit(1);
