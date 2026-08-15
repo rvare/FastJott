@@ -7,7 +7,7 @@ fn main() {
         match flag.as_str() {
             "-i" | "--important" => rustnoteutil::new_note(true),
             "-a" | "--archive" => rustnoteutil::archive_notes_file(),
-	    "-h" | "--help" => rustnoteutil::help_info(),
+            "-h" | "--help" => rustnoteutil::help_info(),
             "-s" | "--serach" => {
                 let Some(regex) = args_iter.next() else {
                     eprintln!("No search parameter provided");
