@@ -21,15 +21,15 @@ fn main() {
 
     if let Some(flag) = args_iter.next() {
         match flag.as_str() {
-            "-i" | "--important" => rustnoteutil::new_note(true),
-            "-a" | "--archive" => rustnoteutil::archive_notes_file(),
-            "-h" | "--help" => rustnoteutil::help_info(),
+            "-i" | "--important" => fastjott::new_note(true),
+            "-a" | "--archive" => fastjott::archive_notes_file(),
+            "-h" | "--help" => fastjott::help_info(),
             "-s" | "--serach" => {
                 let Some(regex) = args_iter.next() else {
                     eprintln!("No search parameter provided");
                     process::exit(1);
                 };
-                rustnoteutil::search_for_note(regex);
+                fastjott::search_for_note(regex);
             }
             _ => {
                 eprintln!("Unrecognized flag");
@@ -37,6 +37,6 @@ fn main() {
             }
         }
     } else {
-        rustnoteutil::new_note(false);
+        fastjott::new_note(false);
     }
 }
