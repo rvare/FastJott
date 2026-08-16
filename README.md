@@ -1,4 +1,4 @@
-# rustnoteutil
+# FastJott
 
 A simple utility for working with notes.txt files written in Rust.
 
