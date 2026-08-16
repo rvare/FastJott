@@ -38,7 +38,7 @@ pub fn new_note(important_flag: bool) {
         process::exit(1);
     };
 
-    file_path.push("rtest.txt");
+    file_path.push("notes.txt");
 
     let mut file: fs::File = match fs::OpenOptions::new()
         .append(true)
@@ -97,7 +97,7 @@ pub fn archive_notes_file() {
 
     let mut archive_path = notes_path.clone();
 
-    notes_path.push("rtest.txt");
+    notes_path.push("notes.txt");
 
     archive_path.push("NotestxtBackUp");
     let current_date: chrono::DateTime<chrono::Local> = chrono::Local::now();
@@ -122,7 +122,7 @@ pub fn search_for_note(query: String) {
         process::exit(1);
     };
 
-    file_path.push("rtest.txt");
+    file_path.push("notes.txt");
 
     let note_contents: String = match fs::read_to_string(file_path) {
         Ok(contents) => contents,
