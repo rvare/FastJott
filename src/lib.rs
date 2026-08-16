@@ -1,3 +1,19 @@
+/*
+Copyright (c) 2026 Richard Varela.
+This file is part of FastJott, which is released under GPL v3.
+
+FastJott is free software: you can redistribute it and/or modify it under the
+terms of the GNU General Public License as published by the Free Software Foundation,
+either version 3 of the License, or (at your option) any later version.
+
+FastJott is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with FastJott.
+If not, see <https://www.gnu.org/licenses/>.
+*/
+
 //! This crate contains all essential functions that perform the basic operations related a `notes.txt` file.
 
 use chrono;
@@ -127,7 +143,7 @@ pub fn search_for_note(query: String) {
 
 /// Display help information.
 pub fn help_info() {
-    println!("Usage: rustnoteutil [OPTION]");
+    println!("Usage: FastJott [OPTION]");
     println!("-i, --important\n\tlabels a note as important");
     println!("-a, --archive\n\tarchives current notes.txt file");
     println!("-h, --help\n\tdisplay this help information");
